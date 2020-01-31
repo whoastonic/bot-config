@@ -1,0 +1,2 @@
+#!/bin/bash
+sudo docker stack deploy --prune --with-registry-auth --resolve-image=always -c ${2:-docker-compose.yml} ${1:-stack}
