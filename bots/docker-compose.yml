@@ -65,6 +65,28 @@ services:
       - type: bind
         source: ~/docker/volumes/postgres
         target: /var/lib/postgresql/data
+  
+  testdb:
+    image: pg-testing:latest
+    deploy:
+      replicas: 1
+      resources:
+        reservations:
+          memory: 128M
+        limits:
+          memory: 256M
+    ports:
+      - 5434:5432
+    networks:
+      - postgres_backend_network
+    environment:
+      POSTGRES_USER: 'root'
+      POSTGRES_PASSWORD: 'esp10n4g31sb4d'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - type: bind
+        source: ~/docker/volumes/postgres-test
+        target: /var/lib/postgresql/data
 
 networks:
   postgres_backend_network:
