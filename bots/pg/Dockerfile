@@ -1,4 +1,7 @@
 FROM postgres:latest
 
-RUN mkdir -p /docker-entrypoint-initdb.d
+ENV BACKUP_DIR = /tmp/backups
+
 COPY ./scripts /docker-entrypoint-initdb.d
+COPY ./backup /
+RUN mkdir -p /docker-entrypoint-initdb.d; mkdir -p ${BACKUP_DIR}; chmod +x /backup.sh
