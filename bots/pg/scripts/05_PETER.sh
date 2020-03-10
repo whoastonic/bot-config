@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-DATABASE=petr
+DATABASE=peter
 USER=pete
 PASSW=pattar
 

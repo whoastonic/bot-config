@@ -19,7 +19,7 @@ services:
       TUX_DB_HOST: 'db'
 
   tag:
-    image: alextaxiera/bots:tag-dev-2
+    image: alextaxiera/bots:tag-dev-3
     deploy:
       replicas: 1
     depends_on:
@@ -48,6 +48,8 @@ services:
     image: alextaxiera/bots:peter-dev-1
     deploy:
       replicas: 1
+    depends_on:
+      - db
     environment:
       NODE_ENV: 'production'
       STREAM_DISCORD_TOKEN: 'NDQxMzY4NjEyOTE4Mzk0ODkw.Dskuqg.WsSG3DWkg6RNK1SyEekK-D68zaU'
