@@ -1,5 +1,12 @@
 version: '3.7'
 
+x-common-variables: &common
+  NODE_ENV: 'production'
+  ADMIN_DB_USER: /run/secrets/pg_admin_user
+  ADMIN_DB_PASS: /run/secrets/pg_admin_pass
+  DB_HOST: db
+  DB_CLIENT: pg
+
 services:
   tux:
     image: alextaxiera/bots:tuxedoman-master-9
@@ -46,6 +53,10 @@ services:
 
   peter:
     image: alextaxiera/bots:peter-dev-1
+    secrets:
+      - pg_admin_user
+      - pg_admin_pass
+      - peter_token
     deploy:
       replicas: 1
     depends_on:
@@ -53,16 +64,17 @@ services:
     networks:
       - postgres_backend_network
     environment:
-      NODE_ENV: 'production'
-      STREAM_DISCORD_TOKEN: 'NDQxMzY4NjEyOTE4Mzk0ODkw.Dskuqg.WsSG3DWkg6RNK1SyEekK-D68zaU'
-      STREAM_DB_CLIENT: 'pg'
-      STREAM_DB_NAME: 'peter'
-      STREAM_DB_USER: 'pete'
-      STREAM_DB_PASS: 'pattar'
-      STREAM_DB_HOST: 'db'
+      <<: *common
+      DISCORD_TOKEN: /run/secrets/peter_token
+      DB_NAME: 'peter'
+      DB_USER: 'pete'
+      DB_PASS: 'pattar'
 
   db:
     image: alextaxiera/bots:pg-2
+    secrets:
+      - pg_admin_user
+      - pg_admin_pass
     deploy:
       replicas: 1
       resources:
@@ -75,8 +87,8 @@ services:
     networks:
       - postgres_backend_network
     environment:
-      POSTGRES_USER: 'my_admin'
-      POSTGRES_PASSWORD: 'esp10n4g31sb4d'
+      POSTGRES_USER: /run/secrets/pg_admin_user
+      POSTGRES_PASSWORD: /run/secrets/pg_admin_pass
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - type: bind
@@ -85,3 +97,11 @@ services:
 
 networks:
   postgres_backend_network:
+
+secrets:
+  pg_admin_pass:
+    file: pg_admin_pass.txt
+  pg_admin_user:
+    file: pg_admin_user.txt
+  peter_token:
+    file: peter_token.txt
