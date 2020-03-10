@@ -1,12 +1,5 @@
 version: '3.7'
 
-x-common-variables: &common-variables
-  NODE_ENV: production
-  DB_CLIENT: pg
-  DB_HOST: db
-  DB_ADMIN: root
-  DB_ADMIN_PASSWORD: esp10n4g31sb4d
-
 services:
   tux:
     image: alextaxiera/bots:tuxedoman-master-9
@@ -17,11 +10,13 @@ services:
     networks:
       - postgres_backend_network
     environment:
-      <<: *common-variables
-      DISCORD_TOKEN: 'NDQxMzY2NjI4ODM2NDQyMTIy.XhpRFQ.oUqfa4bKNXR3RQRMGDOubMVb8fc'
-      DB_NAME: 'tuxedoman'
-      DB_USER: 'tux'
-      DB_PASS: 'tuxedomask'
+      NODE_ENV: 'production'
+      TUX_DB_CLIENT: 'pg'
+      TUX_DISCORD_TOKEN: 'NDQxMzY2NjI4ODM2NDQyMTIy.XhpRFQ.oUqfa4bKNXR3RQRMGDOubMVb8fc'
+      TUX_DB_NAME: 'tuxedoman'
+      TUX_DB_USER: 'tux'
+      TUX_DB_PASS: 'tuxedomask'
+      TUX_DB_HOST: 'db'
 
   tag:
     image: alextaxiera/bots:tag-dev-2
@@ -32,20 +27,35 @@ services:
     networks:
       - postgres_backend_network
     environment:
-      <<: *common-variables
-      DISCORD_TOKEN: 'NTIwNzgzNDQxODY4ODgxOTIw.Duy5jw._mvXvfSxyglMSmjJssRUQXwRK6g'
-      IMGUR_CLIENT_ID: '41b60de5c6bfd49'
-      DB_NAME: 'tagger'
-      DB_USER: 'tag'
-      DB_PASS: 'tagbot'
+      NODE_ENV: 'production'
+      TAG_DB_CLIENT: 'pg'
+      TAG_DISCORD_TOKEN: 'NTIwNzgzNDQxODY4ODgxOTIw.Duy5jw._mvXvfSxyglMSmjJssRUQXwRK6g'
+      TAG_IMGUR_CLIENT_ID: '41b60de5c6bfd49'
+      TAG_DB_NAME: 'tagger'
+      TAG_DB_USER: 'tag'
+      TAG_DB_PASS: 'tagbot'
+      TAG_DB_HOST: 'db'
 
   eli:
     image: alextaxiera/bots:eli-master-3
     deploy:
       replicas: 1
     environment:
-      <<: *common-variables
-      DISCORD_TOKEN: 'NDM2MjI2NDE1ODM5Njc0MzY4.Xi5vYA.M-OfRQmeuV0k-My76BA7lgdJ6bw'
+      NODE_ENV: 'production'
+      GB_TOKEN: 'NDM2MjI2NDE1ODM5Njc0MzY4.Xi5vYA.M-OfRQmeuV0k-My76BA7lgdJ6bw'
+
+  peter:
+    image: alextaxiera/bots:peter-dev-1
+    deploy:
+      replicas: 1
+    environment:
+      NODE_ENV: 'production'
+      STREAM_DISCORD_TOKEN: 'NDQxMzY4NjEyOTE4Mzk0ODkw.Dskuqg.WsSG3DWkg6RNK1SyEekK-D68zaU'
+      STREAM_DB_CLIENT: 'pg'
+      STREAM_DB_NAME: 'peter'
+      STREAM_DB_USER: 'pete'
+      STREAM_DB_PASS: 'pattar'
+      STREAM_DB_HOST: 'db'
 
   db:
     image: alextaxiera/bots:pg-1
@@ -61,34 +71,12 @@ services:
     networks:
       - postgres_backend_network
     environment:
-      POSTGRES_USER: 'root'
+      POSTGRES_USER: 'my_admin'
       POSTGRES_PASSWORD: 'esp10n4g31sb4d'
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - type: bind
         source: ~/docker/volumes/postgres
-        target: /var/lib/postgresql/data
-  
-  testdb:
-    image: pg-testing:latest
-    deploy:
-      replicas: 1
-      resources:
-        reservations:
-          memory: 128M
-        limits:
-          memory: 256M
-    ports:
-      - 5434:5432
-    networks:
-      - postgres_backend_network
-    environment:
-      POSTGRES_USER: 'root'
-      POSTGRES_PASSWORD: 'esp10n4g31sb4d'
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - type: bind
-        source: ~/docker/volumes/postgres-test
         target: /var/lib/postgresql/data
 
 networks:
