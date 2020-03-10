@@ -58,7 +58,7 @@ services:
       STREAM_DB_HOST: 'db'
 
   db:
-    image: alextaxiera/bots:pg-1
+    image: alextaxiera/bots:pg-2
     deploy:
       replicas: 1
       resources:
