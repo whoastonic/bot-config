@@ -50,6 +50,8 @@ services:
       replicas: 1
     depends_on:
       - db
+    networks:
+      - postgres_backend_network
     environment:
       NODE_ENV: 'production'
       STREAM_DISCORD_TOKEN: 'NDQxMzY4NjEyOTE4Mzk0ODkw.Dskuqg.WsSG3DWkg6RNK1SyEekK-D68zaU'
