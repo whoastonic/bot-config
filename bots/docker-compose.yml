@@ -100,8 +100,8 @@ networks:
 
 secrets:
   pg_admin_pass:
-    file: pg_admin_pass.txt
+    file: ./secrets/pg_admin_pass.txt
   pg_admin_user:
-    file: pg_admin_user.txt
+    file: ./secrets/pg_admin_user.txt
   peter_token:
-    file: peter_token.txt
+    file: ./secrets/peter_token.txt
