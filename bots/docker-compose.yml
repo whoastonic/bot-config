@@ -2,8 +2,6 @@ version: '3.7'
 
 x-common-variables: &common
   NODE_ENV: 'production'
-  ADMIN_DB_USER: /run/secrets/pg_admin_user
-  ADMIN_DB_PASS: /run/secrets/pg_admin_pass
   DB_HOST: db
   DB_CLIENT: pg
 
@@ -52,11 +50,17 @@ services:
       GB_TOKEN: 'NDM2MjI2NDE1ODM5Njc0MzY4.Xi5vYA.M-OfRQmeuV0k-My76BA7lgdJ6bw'
 
   peter:
-    image: alextaxiera/bots:peter-dev-2
+    image: alextaxiera/bots:peter-dev-5
     secrets:
-      - pg_admin_user
-      - pg_admin_pass
-      - peter_token
+      -
+        source: PG_ADMIN_USER
+        target: ADMIN_DB_USER
+      -
+        source: PG_ADMIN_PASS
+        target: ADMIN_DB_PASS
+      -
+        source: PETER_TOKEN
+        target: DISCORD_TOKEN
     deploy:
       replicas: 1
     depends_on:
@@ -65,7 +69,6 @@ services:
       - postgres_backend_network
     environment:
       <<: *common
-      DISCORD_TOKEN: /run/secrets/peter_token
       DB_NAME: 'peter'
       DB_USER: 'pete'
       DB_PASS: 'pattar'
@@ -99,9 +102,9 @@ networks:
   postgres_backend_network:
 
 secrets:
-  pg_admin_pass:
-    file: ./secrets/pg_admin_pass.txt
-  pg_admin_user:
-    file: ./secrets/pg_admin_user.txt
-  peter_token:
-    file: ./secrets/peter_token.txt
+  PG_ADMIN_USER:
+    external: true
+  PG_ADMIN_PASS:
+    external: true
+  PETER_TOKEN:
+    external: true
