@@ -75,9 +75,6 @@ services:
 
   db:
     image: alextaxiera/bots:pg-2
-    secrets:
-      - pg_admin_user
-      - pg_admin_pass
     deploy:
       replicas: 1
       resources:
@@ -89,9 +86,6 @@ services:
       - 5432:5432
     networks:
       - postgres_backend_network
-    environment:
-      POSTGRES_USER: /run/secrets/pg_admin_user
-      POSTGRES_PASSWORD: /run/secrets/pg_admin_pass
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - type: bind
