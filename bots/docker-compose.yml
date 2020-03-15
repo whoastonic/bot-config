@@ -1,7 +1,7 @@
 version: '3.7'
 
 x-common-variables: &common
-  NODE_ENV: 'production'
+  NODE_ENV: production
   DB_HOST: db
   DB_CLIENT: pg
 
@@ -9,11 +9,17 @@ networks:
   postgres_backend_network:
 
 secrets:
-  PG_ADMIN_USER:
+  ADMIN_DB_USER:
     external: true
-  PG_ADMIN_PASS:
+  ADMIN_DB_PASS:
+    external: true
+  IMGUR_CLIENT_ID:
     external: true
   PETER_TOKEN:
+    external: true
+  TAGGER_TOKEN:
+    external: true
+  ELI_TOKEN:
     external: true
 
 services:
@@ -42,42 +48,44 @@ services:
       - db
     networks:
       - postgres_backend_network
+    secrets:
+      - IMGUR_CLIENT_ID
+      - ADMIN_DB_USER
+      - ADMIN_DB_PASS
+      -
+        source: TAGGER_TOKEN
+        target: DISCORD_TOKEN
     environment:
-      NODE_ENV: 'production'
-      TAG_DB_CLIENT: 'pg'
-      TAG_DISCORD_TOKEN: 'NTIwNzgzNDQxODY4ODgxOTIw.Duy5jw._mvXvfSxyglMSmjJssRUQXwRK6g'
-      TAG_IMGUR_CLIENT_ID: '41b60de5c6bfd49'
-      TAG_DB_NAME: 'tagger'
-      TAG_DB_USER: 'tag'
-      TAG_DB_PASS: 'tagbot'
-      TAG_DB_HOST: 'db'
+      <<: *common
+      DB_NAME: tagger
+      DB_USER: tag
+      DB_PASS: tagbot
 
   eli:
     image: alextaxiera/bots:eli-master-3
     deploy:
       replicas: 1
+    secrets:
+      -
+        source: ELI_TOKEN
+        target: DISCORD_TOKEN
     environment:
-      NODE_ENV: 'production'
-      GB_TOKEN: 'NDM2MjI2NDE1ODM5Njc0MzY4.Xi5vYA.M-OfRQmeuV0k-My76BA7lgdJ6bw'
+      <<: *common
 
   peter:
     image: alextaxiera/bots:peter-dev-12
-    secrets:
-      -
-        source: PG_ADMIN_USER
-        target: ADMIN_DB_USER
-      -
-        source: PG_ADMIN_PASS
-        target: ADMIN_DB_PASS
-      -
-        source: PETER_TOKEN
-        target: DISCORD_TOKEN
     deploy:
       replicas: 1
     depends_on:
       - db
     networks:
       - postgres_backend_network
+    secrets:
+      - ADMIN_DB_USER
+      - ADMIN_DB_PASS
+      -
+        source: PETER_TOKEN
+        target: DISCORD_TOKEN
     environment:
       <<: *common
       DB_NAME: 'peter'
