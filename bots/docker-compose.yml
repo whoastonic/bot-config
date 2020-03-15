@@ -41,7 +41,7 @@ services:
       TUX_DB_HOST: 'db'
 
   tag:
-    image: alextaxiera/bots:tag-dev-3
+    image: alextaxiera/bots:tag-dev-4
     deploy:
       replicas: 1
     depends_on:
@@ -62,7 +62,7 @@ services:
       DB_PASS: tagbot
 
   eli:
-    image: alextaxiera/bots:eli-master-3
+    image: alextaxiera/bots:eli-6
     deploy:
       replicas: 1
     secrets:
