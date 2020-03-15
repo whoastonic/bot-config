@@ -5,6 +5,17 @@ x-common-variables: &common
   DB_HOST: db
   DB_CLIENT: pg
 
+networks:
+  postgres_backend_network:
+
+secrets:
+  PG_ADMIN_USER:
+    external: true
+  PG_ADMIN_PASS:
+    external: true
+  PETER_TOKEN:
+    external: true
+
 services:
   tux:
     image: alextaxiera/bots:tuxedoman-master-9
@@ -50,7 +61,7 @@ services:
       GB_TOKEN: 'NDM2MjI2NDE1ODM5Njc0MzY4.Xi5vYA.M-OfRQmeuV0k-My76BA7lgdJ6bw'
 
   peter:
-    image: alextaxiera/bots:peter-dev-8
+    image: alextaxiera/bots:peter-dev-12
     secrets:
       -
         source: PG_ADMIN_USER
@@ -91,14 +102,3 @@ services:
       - type: bind
         source: ~/docker/volumes/postgres
         target: /var/lib/postgresql/data
-
-networks:
-  postgres_backend_network:
-
-secrets:
-  PG_ADMIN_USER:
-    external: true
-  PG_ADMIN_PASS:
-    external: true
-  PETER_TOKEN:
-    external: true
