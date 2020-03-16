@@ -62,7 +62,7 @@ services:
       DB_PASS: tagbot
 
   eli:
-    image: alextaxiera/bots:eli-6
+    image: alextaxiera/bots:eli-7
     deploy:
       replicas: 1
     secrets:
@@ -73,7 +73,7 @@ services:
       <<: *common
 
   peter:
-    image: alextaxiera/bots:peter-dev-12
+    image: alextaxiera/bots:peter-dev-13
     deploy:
       replicas: 1
     depends_on:
