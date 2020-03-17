@@ -41,7 +41,7 @@ services:
       TUX_DB_HOST: 'db'
 
   tag:
-    image: alextaxiera/bots:tag-dev-7
+    image: alextaxiera/bots:tag-dev-8
     deploy:
       replicas: 1
     depends_on:
@@ -88,9 +88,9 @@ services:
         target: DISCORD_TOKEN
     environment:
       <<: *common
-      DB_NAME: 'peter'
-      DB_USER: 'pete'
-      DB_PASS: 'pattar'
+      DB_NAME: peter
+      DB_USER: pete
+      DB_PASS: pattar
 
   db:
     image: alextaxiera/bots:pg-2
@@ -107,6 +107,7 @@ services:
       - postgres_backend_network
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - type: bind
+      -
+        type: bind
         source: ~/docker/volumes/postgres
         target: /var/lib/postgresql/data
