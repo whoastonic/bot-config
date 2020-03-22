@@ -26,7 +26,7 @@ secrets:
 
 services:
   tux:
-    image: alextaxiera/bots:tuxedoman-master-14
+    image: alextaxiera/bots:tuxedoman-15
     deploy:
       replicas: 1
     depends_on:
