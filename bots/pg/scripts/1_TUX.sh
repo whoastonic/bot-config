@@ -1,8 +1,0 @@
-#!/bin/bash
-set -e
-
-PGPASSWORD="$POSTGRES_PASSWORD" psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" <<-EOSQL
-	CREATE DATABASE tuxedoman;
-	CREATE USER tux WITH ENCRYPTED PASSWORD 'tuxedomask';
-	GRANT ALL PRIVILEGES ON DATABASE tuxedoman TO tux;
-EOSQL

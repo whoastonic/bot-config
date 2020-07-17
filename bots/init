@@ -1,2 +1,4 @@
 #!/bin/bash
 mkdir -p ~/docker/volumes/postgres
+mkdir -p ~/docker/volumes/db_backups
+(crontab -l 2>/dev/null; echo "0 0 * * * sudo docker ps -aqf '^bots_db' | xargs -i sh -c 'sudo docker exec {} /backup.sh'") | crontab -
