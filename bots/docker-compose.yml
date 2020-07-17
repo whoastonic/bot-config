@@ -17,11 +17,33 @@ secrets:
     external: true
   TUX_TOKEN:
     external: true
+  TUX_DB_NAME:
+    external: true
+  TUX_DB_USER:
+    external: true
+  TUX_DB_PASS:
+    external: true
   PETER_TOKEN:
+    external: true
+  PETER_DB_NAME:
+    external: true
+  PETER_DB_USER:
+    external: true
+  PETER_DB_PASS:
     external: true
   TAGGER_TOKEN:
     external: true
+  TAG_DB_NAME:
+    external: true
+  TAG_DB_USER:
+    external: true
+  TAG_DB_PASS:
+    external: true
   ELI_TOKEN:
+    external: true
+  READONLY_USER:
+    external: true
+  READONLY_PASS:
     external: true
 
 services:
@@ -37,13 +59,19 @@ services:
       - ADMIN_DB_USER
       - ADMIN_DB_PASS
       -
+        source: TUX_DB_NAME
+        target: DB_NAME
+      -
+        source: TUX_DB_USER
+        target: DB_USER
+      -
+        source: TUX_DB_PASS
+        target: DB_PASS
+      -
         source: TUX_TOKEN
         target: DISCORD_TOKEN
     environment:
       <<: *common
-      DB_NAME: tuxedoman
-      DB_USER: tux
-      DB_PASS: tuxedomask
 
   tag:
     image: alextaxiera/bots:tag-10
@@ -58,13 +86,19 @@ services:
       - ADMIN_DB_USER
       - ADMIN_DB_PASS
       -
+        source: TAG_DB_NAME
+        target: DB_NAME
+      -
+        source: TAG_DB_USER
+        target: DB_USER
+      -
+        source: TAG_DB_PASS
+        target: DB_PASS
+      -
         source: TAGGER_TOKEN
         target: DISCORD_TOKEN
     environment:
       <<: *common
-      DB_NAME: tagger
-      DB_USER: tag
-      DB_PASS: tagbot
 
   eli:
     image: alextaxiera/bots:eli-7
@@ -89,13 +123,19 @@ services:
       - ADMIN_DB_USER
       - ADMIN_DB_PASS
       -
+        source: PETER_DB_NAME
+        target: DB_NAME
+      -
+        source: PETER_DB_USER
+        target: DB_USER
+      -
+        source: PETER_DB_PASS
+        target: DB_PASS
+      -
         source: PETER_TOKEN
         target: DISCORD_TOKEN
     environment:
       <<: *common
-      DB_NAME: peter
-      DB_USER: pete
-      DB_PASS: pattar
 
   db:
     image: alextaxiera/bots:pg-2
@@ -116,3 +156,21 @@ services:
         type: bind
         source: ~/docker/volumes/postgres
         target: /var/lib/postgresql/data
+    secrets:
+      - TUX_DB_NAME
+      - TUX_DB_USER
+      - TUX_DB_PASS
+      - PETER_DB_NAME
+      - PETER_DB_USER
+      - PETER_DB_PASS
+      - TAG_DB_NAME
+      - TAG_DB_USER
+      - TAG_DB_PASS
+      - READONLY_USER
+      - READONLY_PASS
+      -
+        source: ADMIN_DB_USER
+        target: ADMIN_USER
+      -
+        source: ADMIN_DB_PASS
+        target: ADMIN_PASS
