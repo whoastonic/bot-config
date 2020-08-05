@@ -74,7 +74,7 @@ services:
       <<: *common
 
   tag:
-    image: alextaxiera/bots:tag-10
+    image: alextaxiera/bots:tag-11
     deploy:
       replicas: 1
     depends_on:
@@ -138,7 +138,7 @@ services:
       <<: *common
 
   db:
-    image: alextaxiera/bots:pg-3
+    image: alextaxiera/bots:pg-7
     deploy:
       replicas: 1
       resources:
