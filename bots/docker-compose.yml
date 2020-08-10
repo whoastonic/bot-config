@@ -111,32 +111,6 @@ services:
     environment:
       <<: *common
 
-  peter:
-    image: alextaxiera/bots:peter-dev-13
-    deploy:
-      replicas: 1
-    depends_on:
-      - db
-    networks:
-      - postgres_backend_network
-    secrets:
-      - ADMIN_DB_USER
-      - ADMIN_DB_PASS
-      -
-        source: PETER_DB_NAME
-        target: DB_NAME
-      -
-        source: PETER_DB_USER
-        target: DB_USER
-      -
-        source: PETER_DB_PASS
-        target: DB_PASS
-      -
-        source: PETER_TOKEN
-        target: DISCORD_TOKEN
-    environment:
-      <<: *common
-
   db:
     image: alextaxiera/bots:pg-3
     deploy:
