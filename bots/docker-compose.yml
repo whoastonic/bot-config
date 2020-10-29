@@ -23,14 +23,6 @@ secrets:
     external: true
   TUX_DB_PASS:
     external: true
-  PETER_TOKEN:
-    external: true
-  PETER_DB_NAME:
-    external: true
-  PETER_DB_USER:
-    external: true
-  PETER_DB_PASS:
-    external: true
   TAG_TOKEN:
     external: true
   TAG_DB_NAME:
@@ -134,9 +126,6 @@ services:
       - TUX_DB_NAME
       - TUX_DB_USER
       - TUX_DB_PASS
-      - PETER_DB_NAME
-      - PETER_DB_USER
-      - PETER_DB_PASS
       - TAG_DB_NAME
       - TAG_DB_USER
       - TAG_DB_PASS
