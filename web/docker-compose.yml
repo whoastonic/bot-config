@@ -24,7 +24,7 @@ services:
     deploy:
       replicas: 1
     labels:
-      com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: "true"
+      - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
     networks:
       - nginx-proxy
     ports:
@@ -37,11 +37,11 @@ services:
       - ~/docker/volumes/certs:/etc/nginx/certs:ro
 
   nginx-gen:
-    image: jwilder/docker-gen
+    image: helder/docker-gen
     deploy:
       replicas: 1
     labels:
-      com.github.jrcs.letsencrypt_nginx_proxy_companion.docker_gen: "true"
+      - com.github.jrcs.letsencrypt_nginx_proxy_companion.docker_gen
     command: -notify-sighup nginx -watch -wait 5s:30s /etc/docker-gen/templates/nginx.tmpl /etc/nginx/conf.d/default.conf
     networks:
       - nginx-proxy
@@ -51,7 +51,7 @@ services:
       - ~/docker/volumes/html:/usr/share/nginx/html
       - ~/docker/volumes/certs:/etc/nginx/certs:ro
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - ./nginx/nginx.tmpl:/etc/docker-gen/templates/nginx.tmpl:ro
+      - ./nginxsudo/nginx.tmpl:/etc/docker-gen/templates/nginx.tmpl:ro
 
   nginx-letsencrypt:
     image: jrcs/letsencrypt-nginx-proxy-companion
