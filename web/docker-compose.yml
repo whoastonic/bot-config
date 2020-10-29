@@ -4,6 +4,23 @@ networks:
   nginx-proxy:
 
 services:
+  pc-api:
+    image: aletaxiera/polished-crystal-api:latest
+    deploy:
+      replicas: 1
+    depends_on:
+      - nginx
+    networks:
+      - nginx-proxy
+    environment:
+      - NODE_ENV=production
+      - VIRTUAL_HOST=pc-api.taxiera.link
+      - VIRTUAL_PORT=3000
+      - LETSENCRYPT_HOST=pc-api.taxiera.link
+      - LETSENCRYPT_EMAIL=alex.taxiera@gmail.com
+    expose:
+      - 3000
+
   nginx:
     image: nginx
     deploy:
