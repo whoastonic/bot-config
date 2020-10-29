@@ -3,6 +3,10 @@ version: '3.7'
 networks:
   nginx-proxy:
 
+secrets:
+  GH_API_TOKEN:
+    external: true
+
 services:
   pc-api:
     image: alextaxiera/polished-crystal-api:latest
@@ -10,6 +14,8 @@ services:
       replicas: 1
     networks:
       - nginx-proxy
+    secrets:
+      - GH_API_TOKEN
     environment:
       NODE_ENV: production
       VIRTUAL_HOST: pc-api.taxiera.link
