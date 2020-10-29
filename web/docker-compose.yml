@@ -51,7 +51,7 @@ services:
       - ~/docker/volumes/html:/usr/share/nginx/html
       - ~/docker/volumes/certs:/etc/nginx/certs:ro
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - ~/docker/volumes/nginx.tmpl:/etc/docker-gen/templates/nginx.tmpl:ro
+      - ./nginx/nginx.tmpl:/etc/docker-gen/templates/nginx.tmpl:ro
 
   nginx-letsencrypt:
     image: jrcs/letsencrypt-nginx-proxy-companion
