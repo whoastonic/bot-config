@@ -25,6 +25,21 @@ services:
       LETSENCRYPT_HOST: pc-api.taxiera.link
       LETSENCRYPT_EMAIL: alex.taxiera@gmail.com
 
+  pc-ui:
+    image: alextaxiera/polished-crystal-ui:latest
+    deploy:
+      replicas: 1
+    networks:
+      - nginx-proxy
+    ports:
+      - 3030:3030
+    environment:
+      NODE_ENV: production
+      VIRTUAL_HOST: pc-data.taxiera.dev
+      VIRTUAL_PORT: 3030
+      LETSENCRYPT_HOST: taxiera.dev
+      LETSENCRYPT_EMAIL: alex.taxiera@gmail.com
+
   nginx:
     image: nginx
     deploy:
