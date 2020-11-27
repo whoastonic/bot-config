@@ -40,7 +40,7 @@ services:
       VIRTUAL_PORT: 3030
       pcApiServerName: pc-api
       pcApiServerPort: ${PC_API_PORT}
-      LETSENCRYPT_HOST: taxiera.dev
+      LETSENCRYPT_HOST: pc-data.taxiera.dev
       LETSENCRYPT_EMAIL: alex.taxiera@gmail.com
 
   nginx:
