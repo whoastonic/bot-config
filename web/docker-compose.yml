@@ -15,14 +15,14 @@ services:
     networks:
       - nginx-proxy
     ports:
-      - "${PC_API_PORT}:${PC_API_PORT}"
+      - 3000:3000
     secrets:
       - GH_API_TOKEN
     environment:
       NODE_ENV: production
       VIRTUAL_HOST: pc-api.taxiera.link
-      VIRTUAL_PORT: "${PC_API_PORT}"
-      PORT: "${PC_API_PORT}"
+      VIRTUAL_PORT: 3000
+      PORT: 3000
       LETSENCRYPT_HOST: pc-api.taxiera.link
       LETSENCRYPT_EMAIL: alex.taxiera@gmail.com
 
@@ -39,7 +39,7 @@ services:
       VIRTUAL_HOST: pc-data.taxiera.dev
       VIRTUAL_PORT: 3030
       pcApiServerName: pc-api
-      pcApiServerPort: "${PC_API_PORT}"
+      pcApiServerPort: 3000
       LETSENCRYPT_HOST: pc-data.taxiera.dev
       LETSENCRYPT_EMAIL: alex.taxiera@gmail.com
 
