@@ -66,7 +66,7 @@ services:
       <<: *common
 
   tag:
-    image: alextaxiera/bots:tag-18
+    image: alextaxiera/bots:tag-19
     deploy:
       replicas: 1
     depends_on:
