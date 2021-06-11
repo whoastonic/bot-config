@@ -1,0 +1,25 @@
+version: '3.7'
+
+secrets:
+  MAIN_RCON_PASS:
+    external: true
+
+services:
+  main:
+    image: itzg/minecraft-server
+    deploy:
+      replicas: 1
+    ports:
+      - 25565:25565
+    secrets:
+      - source: MAIN_RCON_PASS
+        target: RCON_PASSWORD
+    environment:
+      VERSION: 1.17
+      MOTD: "Vanilla Minecraft, Chill Vibes Only"
+      EULA: "TRUE"
+      ENABLE_RCON: "true"
+      RCON_PORT: 28016
+      restart: always
+    volumes:
+      - /mnt/md0/minecraft/1.17:/data
