@@ -167,4 +167,4 @@ services:
       -
         type: bind
         source: ~/docker/volumes/avc
-        target: /guilds
+        target: /AutoVoiceChannels/guilds
