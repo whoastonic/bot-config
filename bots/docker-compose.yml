@@ -140,3 +140,21 @@ services:
     environment:
       POSTGRES_USER_FILE: /run/secrets/ADMIN_USER
       POSTGRES_PASSWORD_FILE: /run/secrets/ADMIN_PASS
+
+  avc:
+    image: vinanrra/auto-voice-channels
+    container_name: AutoVoiceChannels
+    secrets:
+      -
+        source: AVC_CLIENT_ID
+        target: CLIENT_ID
+      -
+        source: AVC_TOKEN
+        target: TOKEN
+      -
+        source: CAALYX_ID
+        target: ADMIN_ID
+    environment:
+      TZ: America/New_York
+    volumes:
+      - ~/docker/volumes/avc:/AutoVoiceChannels/guilds:Z
