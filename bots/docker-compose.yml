@@ -151,10 +151,6 @@ services:
     image: vinanrra/auto-voice-channels
     deploy:
       replicas: 1
-    depends_on:
-      - db
-    networks:
-      - postgres_backend_network
     secrets:
       -
         source: AVC_CLIENT_ID
@@ -168,4 +164,7 @@ services:
     environment:
       TZ: America/New_York
     volumes:
-      - ~/docker/volumes/avc:/AutoVoiceChannels/guilds:Z
+      -
+        type: bind
+        source: ~/docker/volumes/avc
+        target: /guilds
