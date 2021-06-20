@@ -164,9 +164,9 @@ services:
     environment:
       TZ: America/New_York
       HEARTBEAT_TIMEOUT: 60
-      DISABLE_LOOP: false
-      RDY_MESSAGE: false
-      AWS: false
+      DISABLE_LOOP: 'false'
+      RDY_MESSAGE: 'false'
+      AWS: 'false'
     volumes:
       -
         type: bind
