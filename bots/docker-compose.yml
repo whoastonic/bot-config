@@ -40,7 +40,7 @@ secrets:
 
 services:
   tux:
-    image: alextaxiera/bots:tuxedoman-38
+    image: alextaxiera/bots:tuxedoman-39
     deploy:
       replicas: 1
     depends_on:
