@@ -37,6 +37,12 @@ secrets:
     external: true
   READONLY_PASS:
     external: true
+  AVC_CLIENT_ID:
+    external: true
+  AVC_TOKEN:
+    external: true
+  CAALYX_ID:
+    external: true
 
 services:
   tux:
