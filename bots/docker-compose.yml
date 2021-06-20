@@ -149,7 +149,8 @@ services:
 
   avc:
     image: vinanrra/auto-voice-channels
-    container_name: AutoVoiceChannels
+    deploy:
+      replicas: 1
     secrets:
       -
         source: AVC_CLIENT_ID
