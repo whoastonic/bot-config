@@ -167,7 +167,9 @@ services:
       DISABLE_LOOP: 'false'
       RDY_MESSAGE: 'false'
       AWS: 'false'
+    entrypoint: source /data/overwrite_entrypoint.sh
     volumes:
+      - ../utils/:/data/
       -
         type: bind
         source: ~/docker/volumes/avc
