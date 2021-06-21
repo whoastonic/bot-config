@@ -171,8 +171,7 @@ services:
       - '/bin/sh'
       - '-c'
       - 'export $(egrep  -v '^#'  /run/secrets/* | xargs); source /entrypoint.sh'
-    # volumes:
-    #   - ../utils/:/data/
+    volumes:
       -
         type: bind
         source: ~/docker/volumes/avc
