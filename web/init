@@ -1,5 +1,0 @@
-#!/bin/bash
-mkdir -p ~/docker/volumes/certs
-mkdir -p ~/docker/volumes/conf.d
-mkdir -p ~/docker/volumes/html
-mkdir -p ~/docker/volumes/vhost.d
